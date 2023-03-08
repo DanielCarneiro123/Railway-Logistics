@@ -6,7 +6,7 @@
 #include <vector>
 #include <sstream>
 #include "trip.h"
-
+/*
 void readTrips(){
     ifstream myFile;
     string currentLine;
@@ -16,12 +16,11 @@ void readTrips(){
     myFile.open("../network.csv");
     getline(myFile, currentLine);
     string tempString;
-    int tempInt;
+    int inputInt;
     while (getline(myFile, currentLine)){
         stringstream inputString(currentLine);
         getline(inputString, viagem.Source, ',');
         getline(inputString, viagem.Target, ',');
-        getline(inputInt, viagem.Capacity, ',');
-
+        //getline(inputString, to_string(viagem.Capacity), ',');
     }
-}
+}*/
