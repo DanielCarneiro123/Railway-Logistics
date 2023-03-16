@@ -1,0 +1,3 @@
+/Users/goncalocosta/Desktop/2ano/2semestre/DAprojeto/DAnota20-main/DAv1/cmake-build-debug/CMakeFiles/DAv1.dir
+/Users/goncalocosta/Desktop/2ano/2semestre/DAprojeto/DAnota20-main/DAv1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/goncalocosta/Desktop/2ano/2semestre/DAprojeto/DAnota20-main/DAv1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
