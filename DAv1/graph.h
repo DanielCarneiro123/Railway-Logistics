@@ -25,7 +25,7 @@ class graph {
 
     void vetorToGraph(set<trip *>& tripsVec, set<stations *>& stationsVec);
     void bfs(int v);
-    void addEdge(int src, int dest, trip trips);
+    void addEdge(int src, int dest, trip ctrip);
     //void setVisited(Node n, bool visited);
     Node findNode(string nome);
 

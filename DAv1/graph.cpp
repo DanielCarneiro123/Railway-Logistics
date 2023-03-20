@@ -27,12 +27,15 @@ void graph::addEdge(int src, int dest, trip trips) {
 }
  */
 
-void graph::addEdge(int src, int dest, trip trips) {
+void graph::addEdge(int src, int dest, trip ctrip) {
     if (src<1 || src>n || dest<1 || dest>n) return;
-    nodes[src].getAdj().push_back(std::make_pair(dest, trips));
-    if (!hasDir) nodes[dest].getAdj().push_back(std::make_pair(src, trips));
+    Edge e;
+    e.setTrip(ctrip);
+    nodes[src].getAdj().push_back(e);
+    //if (!hasDir) nodes[dest].getAdj().push_back(std::make_pair(src, trips)); nao sei bem para que serve esta linha mas é só dar pushback do edge
 }
 /*
+ * nodes[src].getAdj().insert(std::make_pair(dest, trips));
 // Depth-First Search: example implementation
 int Graph::dfs(int v) {
     cout << v << " "; // show node order

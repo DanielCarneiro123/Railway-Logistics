@@ -51,7 +51,9 @@ protected:
 class Edge {
 public:
 
+    Edge();
     trip getTrip() const;
+    void setTrip(trip t);
 
     //Edge(Node *orig, Node *dest, double w);
 
@@ -69,6 +71,7 @@ protected:
     int dest; //ou então meter string dest com o nome do node
     trip cTrip;
 
+    /*
     bool selected = false;
 
     // used for bidirectional edges
@@ -76,7 +79,7 @@ protected:
     Edge *reverse = nullptr;
 
     double flow; // for flow-related problems
-
+*/
 };
 
 

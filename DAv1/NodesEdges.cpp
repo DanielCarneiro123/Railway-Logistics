@@ -100,3 +100,9 @@ void Edge::setReverse(Edge *reverse) {
 void Edge::setSelected(bool selected) {
     this->selected = selected;
 }
+
+Edge::Edge() {}
+
+void Edge::setTrip(trip t) {
+    this->cTrip = t;
+}
