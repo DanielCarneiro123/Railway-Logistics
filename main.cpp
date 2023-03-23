@@ -7,7 +7,6 @@
 void createEdges(Graph &g){
     ifstream myFile;
     string currentLine;
-    int i = 0;
     Network viagem;
     myFile.open("../network.csv");
     getline(myFile, currentLine);
@@ -16,7 +15,25 @@ void createEdges(Graph &g){
     while (getline(myFile, currentLine)){
         stringstream inputString(currentLine);
         getline(inputString, viagem.Source, ',');
+        if (viagem.Source.front() == '\"') {
+            string completeSource = viagem.Source;
+            while (completeSource.back() != '\"' && getline(inputString, viagem.Source, ',')) {
+                completeSource += "," + viagem.Source;
+            }
+            completeSource.erase(0, 1);
+            completeSource.erase(completeSource.size() - 1);
+            viagem.Source = completeSource;
+        }
         getline(inputString, viagem.Target, ',');
+        if (viagem.Target.front() == '\"') {
+            string completeTarget = viagem.Target;
+            while (completeTarget.back() != '\"' && getline(inputString, viagem.Target, ',')) {
+                completeTarget += "," + viagem.Target;
+            }
+            completeTarget.erase(0, 1);
+            completeTarget.erase(completeTarget.size() - 1);
+            viagem.Target = completeTarget;
+        }
         getline(inputString, tempString, ',');
         inputInt = stoi(tempString);
         viagem.Capacity = inputInt;
@@ -68,6 +85,8 @@ int main() {
     Graph g;
     createVertexes(g);
     createEdges(g);
+    //g.edmondsKarp(2,54);
+    
     std::cout << g.getVertexSet().size() << std::endl;
     return 0;
 }

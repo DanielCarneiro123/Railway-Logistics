@@ -45,6 +45,22 @@ public:
 
     bool addEdge(const string &sourc, const string &dest, int w, string service);
 
+
+    bool findAugmentingPath(Vertex *src, Vertex *dest);
+
+    double findMinResidualAlongPath(Vertex *src, Vertex *dest);
+
+    void augmentFlowAlongPath(Vertex *src, Vertex *dest, double f);
+
+
+
+    void testAndVisit(queue<Vertex *> &queue, Edge *e, Vertex *w, double residual);
+
+    void teste(int idA, int idB);
+
+    void edmondsKarp(int source, int target);
+
+
 protected:
 
     std::vector<Vertex*> vertexSet;    // vertex set

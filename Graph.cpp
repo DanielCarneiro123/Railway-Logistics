@@ -102,3 +102,95 @@ Graph::~Graph() {
     deleteMatrix(distMatrix, vertexSet.size());
     deleteMatrix(pathMatrix, vertexSet.size());
 }
+
+
+void Graph::testAndVisit(std::queue<Vertex*>& queue, Edge* e, Vertex* w, double residual){
+    if (!w->isVisited() && residual > 0) {
+        w->setVisited(true);
+        w->setPath(e);
+        queue.push(w);
+    }
+}
+
+
+bool Graph::findAugmentingPath(Vertex* src, Vertex* dest){
+    for (Vertex*  v : vertexSet)
+        v->setVisited(false);
+
+    src->setVisited(true);
+
+    std::queue<Vertex*> queue;
+    queue.push(src);
+
+    while (!queue.empty() && !dest->isVisited()){
+        Vertex* v = queue.front();
+        queue.pop();
+
+        for (Edge* e: v->getAdj())
+            testAndVisit(queue,e,e->getDest(),e->getWeight()-e->getFlow());
+
+        for (Edge* e: v->getIncoming())
+            testAndVisit(queue,e,e->getOrig(),e->getFlow());
+    }
+
+    return dest->isVisited();
+}
+
+double Graph::findMinResidualAlongPath(Vertex* src, Vertex* dest){
+    double f = INF;
+    for(Vertex* v = dest; v != src;){
+        Edge* e = v->getPath();
+        if (e->getDest() == v){
+            f = std::min(f,e->getWeight()-e->getFlow());
+            v = e->getOrig();
+        }
+        else{
+            f = std::min(f,e->getFlow());
+            v = e->getDest();
+        }
+    }
+    return f;
+}
+
+void Graph::augmentFlowAlongPath(Vertex *src, Vertex *dest, double f){
+    for (Vertex* v = dest; v != src;){
+        Edge* e = v->getPath();
+        double flow = e->getFlow();
+
+        //capacidade residual
+        if (e->getDest() == v){
+            e->setFlow(flow+f);
+            v = e->getOrig();
+        }
+
+            //fluxo no sentido oposto
+        else{
+            e->setFlow(flow-f);
+            v = e->getDest();
+        }
+    }
+}
+
+
+void Graph::edmondsKarp(int source, int target) {
+    Vertex* src = findVertex(source);
+    Vertex*  dest = findVertex(target);
+    if (src == nullptr || dest == nullptr || src == dest)
+        return;
+
+    //reset dos fluxos
+    for (Vertex*  v : vertexSet)
+        for (Edge* e : v->getAdj())
+            e->setFlow(0);
+
+    //encontrar caminhos de aumento de fluxo
+    while (findAugmentingPath(src,dest)) {
+        auto f = findMinResidualAlongPath(src, dest);
+        augmentFlowAlongPath(src, dest, f);
+    }
+
+}
+
+void Graph::teste(int idA, int idB){
+    edmondsKarp(idA,idB);
+}
