@@ -215,6 +215,7 @@ Vertex* Edge::getTarget(){
     return this->dest;
 }
 
+
 string Edge::getService(){
     return this->service;
 }

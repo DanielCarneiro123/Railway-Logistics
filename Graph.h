@@ -27,7 +27,7 @@ public:
      *  Returns true if successful, and false if a vertex with that content already exists.
      */
     //void addVertex(Vertex &v);
-    bool addVertex(Stations station);
+    bool addVertex(Stations* station);
     /*
      * Adds an edge to a graph (this), given the contents of the source and
      * destination vertices and the edge weight (w).
@@ -75,6 +75,8 @@ protected:
 
 
     bool addBidirectionalEdge(const string &sourc, const string &dest, int w, string service);
+
+
 };
 
 void deleteMatrix(int **m, int n);

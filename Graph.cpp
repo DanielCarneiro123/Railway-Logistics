@@ -46,10 +46,10 @@ int Graph::findVertexIdx(const int &id) const {
  *  Adds a vertex with a given content or info (in) to a graph (this).
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
-bool Graph::addVertex(Stations station) {
-    Vertex*  new_vertex = new Vertex(vertexSet.size(), &station);
+bool Graph::addVertex(Stations *station) {
+    Vertex* new_vertex = new Vertex(vertexSet.size(), station);
     vertexSet.push_back(new_vertex);
-    vertexMap.insert({station.Name, new_vertex});
+    vertexMap.insert({station->Name, new_vertex});
     return true;
 }
 /*
