@@ -189,6 +189,10 @@ void Graph::edmondsKarp(int source, int target) {
         augmentFlowAlongPath(src, dest, f);
     }
 
+    for(Edge* e: src->getAdj()){
+        cout << e->getFlow() << endl;
+    }
+
 }
 
 void Graph::teste(int idA, int idB){

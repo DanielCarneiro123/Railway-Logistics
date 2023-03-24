@@ -85,7 +85,7 @@ int main() {
     Graph g;
     createVertexes(g);
     createEdges(g);
-    //g.edmondsKarp(2,54);
+    g.edmondsKarp(483,321);
     
     std::cout << g.getVertexSet().size() << std::endl;
     return 0;

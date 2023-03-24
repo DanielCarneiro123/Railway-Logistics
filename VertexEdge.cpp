@@ -172,6 +172,9 @@ void Vertex::readVertex() {
 
 Edge::Edge(Vertex *orig, Vertex *dest, int capacity, string service): orig(orig), dest(dest), weight(capacity), service(service) {}
 
+Vertex * Edge::getDest() const {
+    return this->dest;
+}
 double Edge::getWeight() const {
     return this->weight;
 }
