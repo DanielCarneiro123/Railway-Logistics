@@ -77,6 +77,7 @@ void createVertexes(Graph &g){
             completeTownship.erase(completeTownship.size() - 1);  // remove trailing quote
             station->Township = completeTownship;
         }
+        g.addMunicipality(station->Municipality);
         getline(iss, station->Line, ',');
         g.addVertex(station);
     }
@@ -90,7 +91,7 @@ int main() {
     createVertexes(g);
     createEdges(g);
     //g.maxFlow(0,3);
-    g.max();
+    g.percorrerMunicipios();
     //std::cout << g.getVertexSet().size() << std::endl;
     return 0;
 }

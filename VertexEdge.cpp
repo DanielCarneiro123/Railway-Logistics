@@ -72,6 +72,11 @@ int Vertex::getId() const {
     return this->id;
 }
 
+string Vertex::getMunicipality() const {
+    return this->stations->Municipality;
+}
+
+
 
 std::vector<Edge*> Vertex::getAdj() const {
     return this->adj;
@@ -127,6 +132,14 @@ void Vertex::setPath(Edge *path) {
 
 string Vertex::getName(){
     return this->stations->Name;
+}
+
+Stations *Vertex::getStation() {
+    return this->stations;
+}
+
+void Vertex::setStation(Stations *Stations) {
+    this->stations = Stations;
 }
 /*
 void Vertex::readVertex() {

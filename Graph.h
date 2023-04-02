@@ -12,6 +12,8 @@
 #include <algorithm>
 #include <unordered_map>
 #include <map>
+#include <set>
+
 
 
 #include "VertexEdge.h"
@@ -63,11 +65,21 @@ public:
 
     void addPair(string key, string value);
     void max();
+    void addMunicipality(string municipio);
+
+    vector<Vertex *> getVerticesByMunicipality(const string &municipality);
+    void createSuperSink(const string &municipality);
+    vector<Vertex*> getVerticesNotInMunicipality(const string &municipality);
+    void createSuperSource(const string &municipality);
+    static bool cmp(pair<string, int>& a, pair<string, int>& b);
+    void sort(map<string, int>& maxFlowsMuni);
+    void percorrerMunicipios();
 
 
 
 
-protected:
+
+        protected:
 
     std::vector<Vertex*> vertexSet;    // vertex set
     std::unordered_map<string , Vertex*> vertexMap;
@@ -82,7 +94,11 @@ protected:
 
     bool addBidirectionalEdge(const string &sourc, const string &dest, int w, string service);
 
-    multimap<std::string, string> pairs;
+    multimap<string, string> pairs;
+
+    set<string> municipios;
+
+    int maxFlowMunici(int idA, int idB);
 };
 
 void deleteMatrix(int **m, int n);

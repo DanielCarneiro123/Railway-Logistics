@@ -70,6 +70,10 @@ void Graph::addPair(string key, string value){
     pairs.insert(make_pair(key,value));
 }
 
+void Graph::addMunicipality(string municipio){
+    municipios.insert(municipio);
+}
+
 bool Graph::addBidirectionalEdge(const string &sourc, const string &dest, int w, string service) {
     auto v1 = vertexMap[sourc];
     auto v2 = vertexMap[dest];
@@ -213,6 +217,26 @@ int Graph::maxFlow(int idA, int idB){
 
 }
 
+int Graph::maxFlowMunici(int idA, int idB){
+
+    int max = 0;
+
+    Vertex* src = findVertex(idA);
+    Vertex*  dest = findVertex(idB);
+
+    edmondsKarp(idA,idB);
+
+    for(auto edge : dest->getIncoming()){
+        for(auto elem : edge->getOrig()->getIncoming())
+            max += edge->getFlow();
+    }
+
+    cout << "O maximo flow entre " << src->getName() << " e " << dest->getName() << " é " << max << endl;  // depois tirar esta linha e colocar no menu
+
+    return max;
+
+}
+
 void Graph::max(){
 
     int maxAtual = -1, idA, idB;
@@ -251,4 +275,99 @@ void Graph::max(){
     for(auto pair : maxPair){
         cout << pair.first << " com destino a " << pair.second << endl;
     }
+}
+
+vector<Vertex*> Graph::getVerticesByMunicipality(const string &municipality) {
+    vector<Vertex*> result;
+    for (auto vertex : vertexSet) {
+        Stations* station = vertex->getStation();
+        if (station->Municipality == municipality) {
+            result.push_back(vertex);
+        }
+    }
+    return result;
+}
+
+void Graph::createSuperSink(const string &municipality) {
+    Stations* station = new Stations();
+    Vertex* supersink = new Vertex(vertexSet.size(),station);
+
+    station->Name = "supersink";
+    station->Municipality = municipality;
+    supersink->setStation(station);
+    vertexSet.push_back(supersink);
+    for (auto vertex : getVerticesByMunicipality(municipality)) {
+        addEdge(vertex->getStation()->Name, supersink->getStation()->Name, INT_MAX, "");
+    }
+}
+
+vector<Vertex*> Graph::getVerticesNotInMunicipality(const string &municipality) {
+    vector<Vertex*> result;
+    for (auto vertex : vertexSet) {
+        Stations* station = vertex->getStation();
+        if (station->Municipality != municipality && station->Municipality != "resto") {
+            result.push_back(vertex);
+        }
+    }
+    return result;
+}
+
+void Graph::createSuperSource(const string &municipality) {
+    Stations* station = new Stations();
+    Vertex* supersource = new Vertex(vertexSet.size(), station);
+    station->Name = "supersource";
+    station->Municipality = "resto";
+    //supersource->setId(99999);
+    supersource->setStation(station);
+    vertexSet.push_back(supersource);
+    for (auto vertex : getVerticesNotInMunicipality(municipality)) {
+        addEdge(supersource->getStation()->Name, vertex->getStation()->Name, INT_MAX, "");
+    }
+}
+
+bool Graph::cmp(pair<string, int>& a, pair<string, int>& b){
+    return a.second < b.second;
+}
+
+
+void Graph::sort(map<string, int>& maxFlowsMuni){
+
+    vector<pair<string, int> > A;
+
+    for (auto& it : maxFlowsMuni) {
+        A.push_back(it);
+    }
+
+    std::sort(A.begin(), A.end(), cmp);
+
+    for (auto& it : A) {
+        maxFlowsMuni.insert(std::make_pair(it.first, it.second));
+    }
+}
+
+void Graph::percorrerMunicipios(){
+
+    map<string,int> maxFlowsMuni;
+    int idA;
+
+    for(auto municipio : municipios){
+
+        for(auto vertex : vertexSet){  //fazer uma função que retorne o id
+            if(vertex->getMunicipality() == municipio){
+                idA = vertex->getId();
+            }
+        }
+
+        createSuperSink(municipio);
+        createSuperSource(municipio);
+        int flow = maxFlowMunici(vertexSet.size()-1,vertexSet.size()-2);
+        maxFlowsMuni[municipio] = flow;
+    }
+
+    sort(maxFlowsMuni);
+
+    for (auto elem : maxFlowsMuni){
+        cout << elem.first << " = " << elem.second << endl;
+    }
+
 }
