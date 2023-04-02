@@ -4,6 +4,7 @@
 #include <sstream>
 #include <fstream>
 
+
 void createEdges(Graph &g){
     ifstream myFile;
     string currentLine;
@@ -34,6 +35,7 @@ void createEdges(Graph &g){
             completeTarget.erase(completeTarget.size() - 1);
             viagem->Target = completeTarget;
         }
+        g.addPair(viagem->Source, viagem->Target);
         getline(inputString, tempString, ',');
         inputInt = stoi(tempString);
         viagem->Capacity = inputInt;
@@ -87,7 +89,8 @@ int main() {
     Graph g;
     createVertexes(g);
     createEdges(g);
-    g.edmondsKarp(483,484);
-    std::cout << g.getVertexSet().size() << std::endl;
+    //g.maxFlow(0,3);
+    g.max();
+    //std::cout << g.getVertexSet().size() << std::endl;
     return 0;
 }

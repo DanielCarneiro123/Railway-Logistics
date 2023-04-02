@@ -6,6 +6,7 @@
 #define DAV2_NETWORK_H
 
 #include <string>
+#include <map>
 
 using namespace std;
 
@@ -23,6 +24,7 @@ public:
     int getCapacity();
 
     string getService();
+
 };
 
 

@@ -11,6 +11,7 @@
 #include <limits>
 #include <algorithm>
 #include <unordered_map>
+#include <map>
 
 
 #include "VertexEdge.h"
@@ -56,9 +57,14 @@ public:
 
     void testAndVisit(queue<Vertex *> &queue, Edge *e, Vertex *w, double residual);
 
-    void teste(int idA, int idB);
+    int maxFlow(int idA, int idB);
 
     void edmondsKarp(int source, int target);
+
+    void addPair(string key, string value);
+    void max();
+
+
 
 
 protected:
@@ -76,7 +82,7 @@ protected:
 
     bool addBidirectionalEdge(const string &sourc, const string &dest, int w, string service);
 
-
+    multimap<std::string, string> pairs;
 };
 
 void deleteMatrix(int **m, int n);

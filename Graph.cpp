@@ -66,6 +66,10 @@ bool Graph::addEdge(const string &sourc, const string &dest, int w, string servi
     return true;
 }
 
+void Graph::addPair(string key, string value){
+    pairs.insert(make_pair(key,value));
+}
+
 bool Graph::addBidirectionalEdge(const string &sourc, const string &dest, int w, string service) {
     auto v1 = vertexMap[sourc];
     auto v2 = vertexMap[dest];
@@ -188,13 +192,63 @@ void Graph::edmondsKarp(int source, int target) {
         auto f = findMinResidualAlongPath(src, dest);
         augmentFlowAlongPath(src, dest, f);
     }
+}
 
-    for(Edge* e: src->getAdj()){
-        cout << e->getFlow() << endl;
+int Graph::maxFlow(int idA, int idB){
+
+    int max = 0;
+
+    Vertex* src = findVertex(idA);
+    Vertex*  dest = findVertex(idB);
+
+    edmondsKarp(idA,idB);
+
+    for(auto elem : dest->getIncoming()){
+        max += elem->getFlow();
     }
+
+    cout << "O maximo flow entre " << src->getName() << " e " << dest->getName() << " é " << max << endl;  // depois tirar esta linha e colocar no menu
+
+    return max;
 
 }
 
-void Graph::teste(int idA, int idB){
-    edmondsKarp(idA,idB);
+void Graph::max(){
+
+    int maxAtual = -1, idA, idB;
+    int flowMaximo;
+    map<string, string> maxPair;
+
+    for(auto pair : pairs){
+        cout << pair.first << " " << pair.second << endl;
+    }
+
+    for (auto pair : pairs){
+
+        for(auto vertex : vertexSet){
+            if(vertex->getName() == pair.first){
+                idA = vertex->getId();
+            }
+            if(vertex->getName() == pair.second){
+                idB = vertex->getId();
+            }
+        }
+
+        flowMaximo = maxFlow(idA,idB);
+
+        if(flowMaximo > maxAtual){
+            maxPair.clear();
+            maxAtual = flowMaximo;
+            maxPair[pair.first] = pair.second;
+        }
+        if(flowMaximo == maxAtual){
+            maxPair[pair.first] = pair.second;
+        }
+
+    }
+
+    cout << "A(s) viagens que exigem mais comboios:" << endl;
+    for(auto pair : maxPair){
+        cout << pair.first << " com destino a " << pair.second << endl;
+    }
 }

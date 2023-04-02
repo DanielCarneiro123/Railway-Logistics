@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.23)
-project(DAv2)
+project(DAnota20-grafo_feito)
 
 set(CMAKE_CXX_STANDARD 14)
 
