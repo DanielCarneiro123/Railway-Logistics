@@ -1,0 +1,125 @@
+\hypertarget{class_graph}{}\doxysection{Graph Class Reference}
+\label{class_graph}\index{Graph@{Graph}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graph_a089f7fc73ea9976295d387846ad36c69}\label{class_graph_a089f7fc73ea9976295d387846ad36c69}} 
+\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ {\bfseries find\+Vertex} (const int \&id) const
+\item 
+\mbox{\Hypertarget{class_graph_a2b5fc30e40dd39afce65fbbbd779da39}\label{class_graph_a2b5fc30e40dd39afce65fbbbd779da39}} 
+bool {\bfseries add\+Vertex} (\mbox{\hyperlink{class_stations}{Stations}} $\ast$station)
+\item 
+\mbox{\Hypertarget{class_graph_aa5e167146b842b1c4b5bb9b1c9905db3}\label{class_graph_aa5e167146b842b1c4b5bb9b1c9905db3}} 
+bool {\bfseries add\+Bidirectional\+Edge} (const int \&source, const int \&dest, double w)
+\item 
+\mbox{\Hypertarget{class_graph_abb5e0517e2979c54eebdafc2a9875e8f}\label{class_graph_abb5e0517e2979c54eebdafc2a9875e8f}} 
+int {\bfseries get\+Num\+Vertex} () const
+\item 
+\mbox{\Hypertarget{class_graph_a619ac583094079134074658e29463c0e}\label{class_graph_a619ac583094079134074658e29463c0e}} 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ {\bfseries get\+Vertex\+Set} () const
+\item 
+\mbox{\Hypertarget{class_graph_a4b6367c74047fb8f72ac1864ca8e0ddc}\label{class_graph_a4b6367c74047fb8f72ac1864ca8e0ddc}} 
+\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ {\bfseries find\+Source} (const string \&source) const
+\item 
+\mbox{\Hypertarget{class_graph_a2e749228f7bb625c47bccf6d941abd08}\label{class_graph_a2e749228f7bb625c47bccf6d941abd08}} 
+\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ {\bfseries find\+Source\+Target} (const string \&source) const
+\item 
+\mbox{\Hypertarget{class_graph_a8625585ab76ed2af361ad401065a5169}\label{class_graph_a8625585ab76ed2af361ad401065a5169}} 
+bool {\bfseries add\+Edge} (const string \&sourc, const string \&dest, int w, string service)
+\item 
+\mbox{\Hypertarget{class_graph_ae583e65d48ca6bbb88e1238a77559fac}\label{class_graph_ae583e65d48ca6bbb88e1238a77559fac}} 
+double {\bfseries find\+Price} (\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$src, \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$dest)
+\item 
+\mbox{\Hypertarget{class_graph_ada20033a1f3809827d5251bfeb8a84d7}\label{class_graph_ada20033a1f3809827d5251bfeb8a84d7}} 
+bool {\bfseries find\+Augmenting\+Path} (\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$src, \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$dest)
+\item 
+\mbox{\Hypertarget{class_graph_a1cf1f094e4e2d548cb11f4bcb64f6df8}\label{class_graph_a1cf1f094e4e2d548cb11f4bcb64f6df8}} 
+double {\bfseries find\+Min\+Residual\+Along\+Path} (\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$src, \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$dest)
+\item 
+\mbox{\Hypertarget{class_graph_a80651a40128b99e21066c01fcbacb59f}\label{class_graph_a80651a40128b99e21066c01fcbacb59f}} 
+void {\bfseries augment\+Flow\+Along\+Path} (\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$src, \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$dest, double f, double p)
+\item 
+\mbox{\Hypertarget{class_graph_a4411710ef3c413d5e39feb2d7935cea0}\label{class_graph_a4411710ef3c413d5e39feb2d7935cea0}} 
+void {\bfseries test\+And\+Visit} (queue$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ \&queue, \mbox{\hyperlink{class_edge}{Edge}} $\ast$e, \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$w, double residual)
+\item 
+\mbox{\Hypertarget{class_graph_a16e1a2c9a6cf0108669481d8ddd68a97}\label{class_graph_a16e1a2c9a6cf0108669481d8ddd68a97}} 
+int {\bfseries max\+Flow} (int idA, int idB)
+\item 
+\mbox{\Hypertarget{class_graph_a9403536e3ff7827b19373095a801ca33}\label{class_graph_a9403536e3ff7827b19373095a801ca33}} 
+void {\bfseries edmonds\+Karp} (int source, int target)
+\item 
+\mbox{\Hypertarget{class_graph_a2c1fc3a563623f57690049c49ac1c7bc}\label{class_graph_a2c1fc3a563623f57690049c49ac1c7bc}} 
+void {\bfseries add\+Pair} (string key, string value)
+\item 
+\mbox{\Hypertarget{class_graph_a7c4ffac6bc533badffd14e2e8a53b1d1}\label{class_graph_a7c4ffac6bc533badffd14e2e8a53b1d1}} 
+void {\bfseries max} ()
+\item 
+\mbox{\Hypertarget{class_graph_ae5051b635b60cd473120a6699dd0058b}\label{class_graph_ae5051b635b60cd473120a6699dd0058b}} 
+void {\bfseries add\+Municipality} (string municipio)
+\item 
+\mbox{\Hypertarget{class_graph_acf134e25f45b15f581a605cad697b787}\label{class_graph_acf134e25f45b15f581a605cad697b787}} 
+vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ {\bfseries get\+Vertices\+By\+Municipality} (const string \&municipality)
+\item 
+\mbox{\Hypertarget{class_graph_a6f2e2de4d7fa7230010f7a36b60221be}\label{class_graph_a6f2e2de4d7fa7230010f7a36b60221be}} 
+void {\bfseries create\+Super\+Sink} (const string \&municipality)
+\item 
+\mbox{\Hypertarget{class_graph_ae17c25b849700d729c75892ee264c2cc}\label{class_graph_ae17c25b849700d729c75892ee264c2cc}} 
+vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ {\bfseries get\+Vertices\+Not\+In\+Municipality} (const string \&municipality)
+\item 
+\mbox{\Hypertarget{class_graph_ab493e04ecb93f69ddb88df936f26dff2}\label{class_graph_ab493e04ecb93f69ddb88df936f26dff2}} 
+void {\bfseries create\+Super\+Source} (const string \&municipality)
+\item 
+\mbox{\Hypertarget{class_graph_ad82d588d48a887673953822b4971eccf}\label{class_graph_ad82d588d48a887673953822b4971eccf}} 
+void {\bfseries sort} (map$<$ string, int $>$ \&max\+Flows\+Muni)
+\item 
+\mbox{\Hypertarget{class_graph_a8246284b82e250f22c589064c2e4cd21}\label{class_graph_a8246284b82e250f22c589064c2e4cd21}} 
+void {\bfseries percorrer\+Municipios} ()
+\item 
+\mbox{\Hypertarget{class_graph_aef0cf4030052a913df1f6a27108096eb}\label{class_graph_aef0cf4030052a913df1f6a27108096eb}} 
+int {\bfseries operation\+Cost} (int idA, int idB)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graph_ac534c380ebdae8e9681f6f6bbc855034}\label{class_graph_ac534c380ebdae8e9681f6f6bbc855034}} 
+static bool {\bfseries cmp} (pair$<$ string, int $>$ \&a, pair$<$ string, int $>$ \&b)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graph_a7dfcef08a9286cf144902cd7e56940ee}\label{class_graph_a7dfcef08a9286cf144902cd7e56940ee}} 
+int {\bfseries find\+Vertex\+Idx} (const int \&id) const
+\item 
+\mbox{\Hypertarget{class_graph_a60c53f6fb918aa211a0666c06c1ca09d}\label{class_graph_a60c53f6fb918aa211a0666c06c1ca09d}} 
+bool {\bfseries add\+Bidirectional\+Edge} (const string \&sourc, const string \&dest, int w, string service)
+\item 
+\mbox{\Hypertarget{class_graph_a181773d63def86eedf05fc44c46d5cad}\label{class_graph_a181773d63def86eedf05fc44c46d5cad}} 
+int {\bfseries max\+Flow\+Munici} (int idA, int idB)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_graph_a6eec9bd738a8909119e5b2470ff5f264}\label{class_graph_a6eec9bd738a8909119e5b2470ff5f264}} 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ {\bfseries vertex\+Set}
+\item 
+\mbox{\Hypertarget{class_graph_acf1c4de25a1a721ea73f270e43eca83d}\label{class_graph_acf1c4de25a1a721ea73f270e43eca83d}} 
+std\+::unordered\+\_\+map$<$ string, \mbox{\hyperlink{class_vertex}{Vertex}} $\ast$ $>$ {\bfseries vertex\+Map}
+\item 
+\mbox{\Hypertarget{class_graph_a9e61864da69191c1896a25a708d1a02d}\label{class_graph_a9e61864da69191c1896a25a708d1a02d}} 
+double $\ast$$\ast$ {\bfseries dist\+Matrix} = nullptr
+\item 
+\mbox{\Hypertarget{class_graph_a3ae09699c3616af3ebfcb1eb045f2b62}\label{class_graph_a3ae09699c3616af3ebfcb1eb045f2b62}} 
+int $\ast$$\ast$ {\bfseries path\+Matrix} = nullptr
+\item 
+\mbox{\Hypertarget{class_graph_a6c21a6f515862cf1de55e9f63f19465d}\label{class_graph_a6c21a6f515862cf1de55e9f63f19465d}} 
+multimap$<$ string, string $>$ {\bfseries pairs}
+\item 
+\mbox{\Hypertarget{class_graph_aad6cfce77fae7e401df7d28d8940e5c8}\label{class_graph_aad6cfce77fae7e401df7d28d8940e5c8}} 
+set$<$ string $>$ {\bfseries municipios}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graph.\+h\item 
+Graph.\+cpp\end{DoxyCompactItemize}

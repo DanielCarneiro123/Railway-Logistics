@@ -1,0 +1,117 @@
+\hypertarget{class_vertex}{}\doxysection{Vertex Class Reference}
+\label{class_vertex}\index{Vertex@{Vertex}}
+
+
+Collaboration diagram for Vertex\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_vertex_aa0332ba48d5efa62dfa700a925cc8ac8}\label{class_vertex_aa0332ba48d5efa62dfa700a925cc8ac8}} 
+{\bfseries Vertex} (int id, \mbox{\hyperlink{class_stations}{Stations}} $\ast$station)
+\item 
+\mbox{\Hypertarget{class_vertex_ad4ccd48170a1530ec1db5eb306357a74}\label{class_vertex_ad4ccd48170a1530ec1db5eb306357a74}} 
+bool {\bfseries operator$<$} (\mbox{\hyperlink{class_vertex}{Vertex}} \&vertex) const
+\item 
+\mbox{\Hypertarget{class_vertex_a75b6b4a4afc26affea59fdae48aa30b1}\label{class_vertex_a75b6b4a4afc26affea59fdae48aa30b1}} 
+int {\bfseries get\+Id} () const
+\item 
+\mbox{\Hypertarget{class_vertex_ac076da661107f67854fff107b1ab043b}\label{class_vertex_ac076da661107f67854fff107b1ab043b}} 
+string {\bfseries get\+Municipality} () const
+\item 
+\mbox{\Hypertarget{class_vertex_a9858f2aa388d2bfb49d9df8f4504b5a0}\label{class_vertex_a9858f2aa388d2bfb49d9df8f4504b5a0}} 
+std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} $\ast$ $>$ {\bfseries get\+Adj} () const
+\item 
+\mbox{\Hypertarget{class_vertex_aa4bd82105b85ee53a917391f4811cd8a}\label{class_vertex_aa4bd82105b85ee53a917391f4811cd8a}} 
+bool {\bfseries is\+Visited} () const
+\item 
+\mbox{\Hypertarget{class_vertex_a126e306f0534b99cd97aa864fdb243d4}\label{class_vertex_a126e306f0534b99cd97aa864fdb243d4}} 
+bool {\bfseries is\+Processing} () const
+\item 
+\mbox{\Hypertarget{class_vertex_ad7348af9376d4b9ada5ceeca3bd1b2b7}\label{class_vertex_ad7348af9376d4b9ada5ceeca3bd1b2b7}} 
+unsigned int {\bfseries get\+Indegree} () const
+\item 
+\mbox{\Hypertarget{class_vertex_aa36ca926de23a6e7283be42e2930957c}\label{class_vertex_aa36ca926de23a6e7283be42e2930957c}} 
+double {\bfseries get\+Dist} () const
+\item 
+\mbox{\Hypertarget{class_vertex_a6e120e57da6af94892fae44e05868794}\label{class_vertex_a6e120e57da6af94892fae44e05868794}} 
+\mbox{\hyperlink{class_edge}{Edge}} $\ast$ {\bfseries get\+Path} () const
+\item 
+\mbox{\Hypertarget{class_vertex_a84b20dae22321e5a729606885357b015}\label{class_vertex_a84b20dae22321e5a729606885357b015}} 
+std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} $\ast$ $>$ {\bfseries get\+Incoming} () const
+\item 
+\mbox{\Hypertarget{class_vertex_a5fbffd695323f52f0b93276176781c7d}\label{class_vertex_a5fbffd695323f52f0b93276176781c7d}} 
+void {\bfseries set\+Id} (int info)
+\item 
+\mbox{\Hypertarget{class_vertex_a15eeabbbb6d517af746ae137c6d5b595}\label{class_vertex_a15eeabbbb6d517af746ae137c6d5b595}} 
+void {\bfseries set\+Visited} (bool visited)
+\item 
+\mbox{\Hypertarget{class_vertex_ab8e07026d427d6fde1422236004fb548}\label{class_vertex_ab8e07026d427d6fde1422236004fb548}} 
+void {\bfseries set\+Processing} (bool processing)
+\item 
+\mbox{\Hypertarget{class_vertex_aeb605d2ba9296a5e40496a9e37557d03}\label{class_vertex_aeb605d2ba9296a5e40496a9e37557d03}} 
+void {\bfseries set\+Indegree} (unsigned int indegree)
+\item 
+\mbox{\Hypertarget{class_vertex_a6939bef79bfe5fe5bf77d9fd1bd70085}\label{class_vertex_a6939bef79bfe5fe5bf77d9fd1bd70085}} 
+void {\bfseries set\+Dist} (double dist)
+\item 
+\mbox{\Hypertarget{class_vertex_abe4bc30005eec65e775d0cd51f456460}\label{class_vertex_abe4bc30005eec65e775d0cd51f456460}} 
+void {\bfseries set\+Path} (\mbox{\hyperlink{class_edge}{Edge}} $\ast$path)
+\item 
+\mbox{\Hypertarget{class_vertex_a10c6827225205dc4ad070914ebfa26e7}\label{class_vertex_a10c6827225205dc4ad070914ebfa26e7}} 
+bool {\bfseries remove\+Edge} (int dest\+ID)
+\item 
+\mbox{\Hypertarget{class_vertex_a80cf3de5ab551cc86c41e41c1e41663f}\label{class_vertex_a80cf3de5ab551cc86c41e41c1e41663f}} 
+void {\bfseries read\+Vertex} ()
+\item 
+\mbox{\Hypertarget{class_vertex_a8d4eb908168d196d899934417c50df8e}\label{class_vertex_a8d4eb908168d196d899934417c50df8e}} 
+string {\bfseries get\+Name} ()
+\item 
+\mbox{\Hypertarget{class_vertex_aae0ac4f98e29bb34d48a87c31cc4be15}\label{class_vertex_aae0ac4f98e29bb34d48a87c31cc4be15}} 
+\mbox{\hyperlink{class_edge}{Edge}} $\ast$ {\bfseries add\+Edge} (\mbox{\hyperlink{class_vertex}{Vertex}} $\ast$d, int w, string service)
+\item 
+\mbox{\Hypertarget{class_vertex_a2b95ea6a750ab9b2c73627a43d515ad1}\label{class_vertex_a2b95ea6a750ab9b2c73627a43d515ad1}} 
+\mbox{\hyperlink{class_stations}{Stations}} $\ast$ {\bfseries get\+Station} ()
+\item 
+\mbox{\Hypertarget{class_vertex_ad11467406122a12957dd02c7ed2057bc}\label{class_vertex_ad11467406122a12957dd02c7ed2057bc}} 
+void {\bfseries set\+Station} (\mbox{\hyperlink{class_stations}{Stations}} $\ast$\mbox{\hyperlink{class_stations}{Stations}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_vertex_a2e69697726190f50c7fc040fb1ddac7a}\label{class_vertex_a2e69697726190f50c7fc040fb1ddac7a}} 
+int {\bfseries id}
+\item 
+\mbox{\Hypertarget{class_vertex_a32957179d63fe92847327a329d63d922}\label{class_vertex_a32957179d63fe92847327a329d63d922}} 
+\mbox{\hyperlink{class_stations}{Stations}} $\ast$ {\bfseries stations}
+\item 
+\mbox{\Hypertarget{class_vertex_a0be7a8d322f99d4812261af91c3e2178}\label{class_vertex_a0be7a8d322f99d4812261af91c3e2178}} 
+std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} $\ast$ $>$ {\bfseries adj}
+\item 
+\mbox{\Hypertarget{class_vertex_aaef9f7de91b4b8f1752d391a1aae9c2e}\label{class_vertex_aaef9f7de91b4b8f1752d391a1aae9c2e}} 
+bool {\bfseries visited} = false
+\item 
+\mbox{\Hypertarget{class_vertex_a305dc8fcad6e4c7ef2491409ca7ddaa4}\label{class_vertex_a305dc8fcad6e4c7ef2491409ca7ddaa4}} 
+bool {\bfseries processing} = false
+\item 
+\mbox{\Hypertarget{class_vertex_a94ae99aae9b1a426feda5ecda70c598b}\label{class_vertex_a94ae99aae9b1a426feda5ecda70c598b}} 
+unsigned int {\bfseries indegree}
+\item 
+\mbox{\Hypertarget{class_vertex_a11d98611f5101fe7f46785d8b9c53f44}\label{class_vertex_a11d98611f5101fe7f46785d8b9c53f44}} 
+double {\bfseries dist} = 0
+\item 
+\mbox{\Hypertarget{class_vertex_a4e83821f961f6eb63ad210260ba0e1e2}\label{class_vertex_a4e83821f961f6eb63ad210260ba0e1e2}} 
+\mbox{\hyperlink{class_edge}{Edge}} $\ast$ {\bfseries path} = nullptr
+\item 
+\mbox{\Hypertarget{class_vertex_a2d41654d7aee77d99edacca6a923f4ee}\label{class_vertex_a2d41654d7aee77d99edacca6a923f4ee}} 
+std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} $\ast$ $>$ {\bfseries incoming}
+\item 
+\mbox{\Hypertarget{class_vertex_a78ba760e405ba9f66129b3870065b48f}\label{class_vertex_a78ba760e405ba9f66129b3870065b48f}} 
+int {\bfseries queue\+Index} = 0
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vertex\+Edge.\+h\item 
+Vertex\+Edge.\+cpp\end{DoxyCompactItemize}
