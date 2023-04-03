@@ -1,9 +1,7 @@
 Station_A,Station_B,Capacity,Service
-Casa Branca,Monte das Flores,3,STANDARD
-Casa Branca,Faro,2,STANDARD
-Monte das Flores,Loulé,2,STANDARD
-Monte das Flores,Faro,2,STANDARD
-Casa Branca,Loulé,2,STANDARD
-Vila Nova de Gaia-Devesas,braga,6,STANDARD
-Monte das Flores,Vila Nova de Gaia-Devesas,2,STANDARD
-Loulé,Faro,2,ALFA PENDULAR
+braganca,Guimaraes,2,alfa
+Guimaraes,braga,2,alfa
+braga,porto,2,pendular
+porto,chaves,2,pendular
+gaia,lisboa,2,alfa
+vila real,lagos,4,pendular

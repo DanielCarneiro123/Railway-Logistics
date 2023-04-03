@@ -280,8 +280,7 @@ void Graph::max(){
 vector<Vertex*> Graph::getVerticesByMunicipality(const string &municipality) {
     vector<Vertex*> result;
     for (auto vertex : vertexSet) {
-        Stations* station = vertex->getStation();
-        if (station->Municipality == municipality) {
+        if (vertex->getStation()->Municipality == municipality) {
             result.push_back(vertex);
         }
     }
@@ -290,22 +289,19 @@ vector<Vertex*> Graph::getVerticesByMunicipality(const string &municipality) {
 
 void Graph::createSuperSink(const string &municipality) {
     Stations* station = new Stations();
-    Vertex* supersink = new Vertex(vertexSet.size(),station);
 
     station->Name = "supersink";
-    station->Municipality = municipality;
-    supersink->setStation(station);
-    vertexSet.push_back(supersink);
+    addVertex(station);
     for (auto vertex : getVerticesByMunicipality(municipality)) {
-        addEdge(vertex->getStation()->Name, supersink->getStation()->Name, INT_MAX, "");
+        addEdge(vertex->getName(),station->Name, INT_MAX, "");
     }
+
 }
 
 vector<Vertex*> Graph::getVerticesNotInMunicipality(const string &municipality) {
     vector<Vertex*> result;
     for (auto vertex : vertexSet) {
-        Stations* station = vertex->getStation();
-        if (station->Municipality != municipality && station->Municipality != "resto") {
+        if (vertex->getStation()->Municipality != municipality && vertex->getStation()->Municipality != "resto" && vertex->getStation()->Name != "supersink") {
             result.push_back(vertex);
         }
     }
@@ -314,14 +310,12 @@ vector<Vertex*> Graph::getVerticesNotInMunicipality(const string &municipality) 
 
 void Graph::createSuperSource(const string &municipality) {
     Stations* station = new Stations();
-    Vertex* supersource = new Vertex(vertexSet.size(), station);
     station->Name = "supersource";
     station->Municipality = "resto";
     //supersource->setId(99999);
-    supersource->setStation(station);
-    vertexSet.push_back(supersource);
+    addVertex(station);
     for (auto vertex : getVerticesNotInMunicipality(municipality)) {
-        addEdge(supersource->getStation()->Name, vertex->getStation()->Name, INT_MAX, "");
+        addEdge(station->Name, vertex->getStation()->Name, INT_MAX, "");
     }
 }
 

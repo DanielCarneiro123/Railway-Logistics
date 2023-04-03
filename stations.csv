@@ -1,7 +1,9 @@
 Name,District,Municipality,Township,Line
-Casa Branca,PORTO,VILA NOVA DE GAIA,Vila Nova de Gaia,Linha do Norte
-Monte das Flores,PORTO,VILA NOVA DE GAIA,Vila Nova de Gaia,Linha do Norte
-Loulé,PORTO,VILA NOVA DE GAIA,faro,Linha do Norte
-Faro,PORTO,VILA NOVA DE GAIA,faro,Linha do Norte
-Vila Nova de Gaia-Devesas,PORTO,faro,Vila Nova de Gaia,Linha do Norte
-braga,PORTO,VILA NOVA DE GAIA,Vila Nova de Gaia,Linha do Norte
+braganca,bragancaD,Porto,Porto,linha do norte
+Guimaraes,GuimaraesD,Porto,Porto,linha do norte
+braga,bragaD,Porto,Porto,linha do norte
+chaves,chavesD,Porto,Porto,linha do norte
+gaia,gaiaD,Porto,Porto,linha do norte
+lisboa,lisboaD,lisboaM,linha do sul
+vila real,vila realD,Faro,linha do sul
+lagos,lagosD,Faro,linha do sul
