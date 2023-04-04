@@ -1,0 +1,7 @@
+Station_A,Station_B,Capacity,Service
+braganca,Guimaraes,2,alfa
+Guimaraes,braga,2,alfa
+braga,porto,2,pendular
+porto,chaves,2,pendular
+gaia,lisboa,2,alfa
+vila real,lagos,4,pendular

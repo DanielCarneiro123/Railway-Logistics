@@ -1,0 +1,8 @@
+Station_A,Station_B,Capacity,Service
+Casa Branca,Monte das Flores,10,STANDARD
+Monte das Flores,Loulé,2,STANDARD
+Monte das Flores,Faro,10,STANDARD
+Casa Branca,Vila Nova de Gaia-Devesas,4,ALFA PENDULAR
+Vila Nova de Gaia-Devesas,Faro,2,STANDARD
+Monte das Flores,Vila Nova de Gaia-Devesas,2,STANDARD
+Loulé,Faro,2,ALFA PENDULAR
