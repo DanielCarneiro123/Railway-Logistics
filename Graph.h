@@ -39,6 +39,7 @@ public:
     bool addBidirectionalEdge(const int &source, const int &dest, double w);
 
     int getNumVertex() const;
+    int getNumEdge() const;
     std::vector<Vertex *> getVertexSet() const;
 
 
@@ -48,6 +49,7 @@ public:
 
     bool addEdge(const string &sourc, const string &dest, int w, string service);
 
+    bool removeEdge(const int &source, const int &dest);
 
     bool findAugmentingPath(Vertex *src, Vertex *dest);
 
@@ -55,31 +57,47 @@ public:
 
     void augmentFlowAlongPath(Vertex *src, Vertex *dest, double f);
 
-
+    Graph createSubgraph ();
+    vector<Vertex*> kthAfectedNodes(int k);
 
     void testAndVisit(queue<Vertex *> &queue, Edge *e, Vertex *w, double residual);
 
     int maxFlow(int idA, int idB);
 
-    void edmondsKarp(int source, int target);
+    int edmondsKarp(int source, int target);
 
     void addPair(string key, string value);
     void max();
     void addMunicipality(string municipio);
+    void addDistrict(string distrito);
+
 
     vector<Vertex *> getVerticesByMunicipality(const string &municipality);
-    void createSuperSink(const string &municipality);
+    vector<Vertex*> getVerticesByDistrict(const string &distrito);
+        void createSuperSink(const string &name, Graph &g, bool is_mun);
     vector<Vertex*> getVerticesNotInMunicipality(const string &municipality);
-    void createSuperSource(const string &municipality);
-    static bool cmp(pair<string, int>& a, pair<string, int>& b);
-    void sort(map<string, int>& maxFlowsMuni);
-    void percorrerMunicipios();
+    vector<Vertex*> getVerticesNotInDistrict(const string &distrito);
+    void createSuperSource(const string &name, Graph &g, bool is_mun);
+    //static bool cmp(pair<string, int>& a, pair<string, int>& b);
+    static bool cmp(const pair<string, int>& a, const pair<string, int>& b);
+    void sort(unordered_map<string, int>& maxFlowsMuni,int k);
+    void percorrerMunicipios(int k, bool is_mun);
+    Graph copy() const;
 
 
 
+    bool addBidirectionalEdge(const string &sourc, const string &dest, int w, string service);
+    int minVertexAdjSize();
+    Vertex* getVertex(string name);
+    void createSuperSourceV2(const int idA);
+    double arrivingTrains(int sink);
+    void Dijkstra(int idA);
+    double operationCost(int idA, int idB);
+
+    void menu2_1(string A, string B);
 
 
-        protected:
+protected:
 
     std::vector<Vertex*> vertexSet;    // vertex set
     std::unordered_map<string , Vertex*> vertexMap;
@@ -92,13 +110,16 @@ public:
     int findVertexIdx(const int &id) const;
 
 
-    bool addBidirectionalEdge(const string &sourc, const string &dest, int w, string service);
-
-    multimap<string, string> pairs;
+    vector<pair<string, string>> pairs;
 
     set<string> municipios;
 
+    set<string> distritos;
+
     int maxFlowMunici(int idA, int idB);
+
+    void removeVertex(int id);
+
 };
 
 void deleteMatrix(int **m, int n);

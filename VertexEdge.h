@@ -42,6 +42,7 @@ public:
     void setDist(double dist);
     void setPath(Edge *path);
     bool removeEdge(int destID);
+    void deleteEdge(Edge* edge);
     void readVertex();
     string getName();
     Edge *addEdge(Vertex *d, int w, string service);
@@ -50,6 +51,7 @@ public:
 
     void setStation(Stations *Stations);
 
+    int queueIndex = 0;
 protected:
     int id;// identifier
     Stations* stations;
@@ -66,7 +68,7 @@ protected:
 
     std::vector<Edge *> incoming; // incoming edges
 
-    int queueIndex = 0; 		// required by MutablePriorityQueue and UFDS
+    // required by MutablePriorityQueue and UFDS
 
 
 
@@ -92,6 +94,9 @@ public:
     void setReverse(Edge *reverse);
     void setFlow(double flow);
     void readEdges();
+    string getService() const;
+    double getPrice() const;
+    void setPrice(double price);
 protected:
     //Vertex * dest; // destination vertex
     int weight;// edge weight, can also be used for capacity
@@ -100,7 +105,7 @@ protected:
     Vertex* source;
     Vertex* dest;
     string service;
-
+    double price;
 
 
     // auxiliary fields
@@ -115,7 +120,5 @@ protected:
     Vertex* getSource();
 
     Vertex* getTarget();
-
-    string getService();
 };
 #endif //DAV2_VERTEXEDGE_H

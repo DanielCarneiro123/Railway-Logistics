@@ -40,7 +40,7 @@ void createEdges(Graph &g){
         inputInt = stoi(tempString);
         viagem->Capacity = inputInt;
         getline(inputString, viagem->Service, ',');
-        g.addEdge(viagem->Source, viagem->Target, viagem->Capacity, viagem->Service);
+        g.addBidirectionalEdge(viagem->Source, viagem->Target, viagem->Capacity, viagem->Service);
     }
     myFile.close();
 }
@@ -78,6 +78,7 @@ void createVertexes(Graph &g){
             station->Township = completeTownship;
         }
         g.addMunicipality(station->Municipality);
+        g.addDistrict(station->District);
         getline(iss, station->Line, ',');
         g.addVertex(station);
     }
@@ -85,13 +86,103 @@ void createVertexes(Graph &g){
 
 }
 
+void Menu4 (Graph g) {
+    int num = 0;
+    g.createSubgraph();
+    cout << "Choose a number os affected stations: ";
+    cin >> num;
+    vector<Vertex*> affectedNodes = g.kthAfectedNodes(num);
+    cout << "The stations that are most affected by the management of the lines are: " << endl;
+    for (auto v : affectedNodes) {
+        cout << v->getName() << endl;
+    }
+}
+
+
 
 int main() {
     Graph g;
+    Graph subgraph;
     createVertexes(g);
     createEdges(g);
+    string stringResposta;
+    //std::cout << g.getNumVertex() << std::endl;
+    //std::cout << g.getNumEdge() << std::endl;
+    //subgraph = g.createSubgraph();
+    //std::cout << subgraph.getNumVertex() << std::endl;
+    //std::cout << subgraph.getNumEdge() << std::endl;
+    //std::cout << g.arrivingTrains(5) << std::endl;
+    std::cout << g.operationCost(9,74) << std::endl;
+    //Menu4(subgraph);
+    //g.max();
     //g.maxFlow(0,3);
-    g.percorrerMunicipios();
+    //g.percorrerMunicipios(10,false);
     //std::cout << g.getVertexSet().size() << std::endl;
+
+
+
+    while (stringResposta != "q") {
+        cout << "===================================== MENU ========================================" << endl;
+        cout << "Maximo flow entre duas estações? - [PRESS 1]" << endl;
+        cout << "Verificar o máximo flow entre todos os pares de estações? - [PRESS 2]" << endl;
+        cout << "Verificar o Top-K distritos / municipios quanto à sua necessidade - [PRESS 3]" << endl;
+        cout << " - [PRESS 4]" << endl;
+        cout << " - [PRESS 5]" << endl;
+        cout << " - [PRESS q]" << endl;
+        cout << "==================================================================================" << endl;
+        cin >> stringResposta;
+        if (stringResposta == "q") {
+            break;
+        }
+        if (stringResposta == "1") {
+            while (stringResposta != "e") {
+                cout << "============================ MENU ================================" << endl;
+                cout << "Digite o nome da primeira estação | Exemplo: Estarreja " << endl;
+                cin >> stringResposta;
+                string primeira = stringResposta;
+                cout << "Digite o nome da segunda estação | Exemplo: Luz " << endl;
+                cin >> stringResposta;
+                string segunda = stringResposta;
+                g.menu2_1(primeira, segunda);
+                cout << "Voltar para tras - [PRESS e] " << endl << "Para repetir - [PRESS 1]" << endl;
+                cout << "==================================================================" << endl;
+                cin >> stringResposta;
+                if (stringResposta == "e") break;
+            }
+        }
+        if (stringResposta == "2") {
+            while (stringResposta != "e") {
+                cout << "============================ MENU ================================" << endl;
+                g.max();
+                cout << "Voltar para tras - [PRESS e] " << endl << "Para repetir - [PRESS 2]" << endl;
+                cout << "==================================================================" << endl;
+                if (stringResposta == "e") break;
+            }
+        }
+        if (stringResposta == "3") {
+            while (stringResposta != "e") {
+                cout << "============================ MENU ================================" << endl;
+                cout << "Qual o top K? | Digite o K: " << endl;
+                cin >> stringResposta;
+                int k = stoi(stringResposta);
+                cout << "Top-k distritos ou municipios? | 0 - Distritos | 1 - Municipios " << endl;
+                cin >> stringResposta;
+                bool is_mun = stoi(stringResposta);
+                g.percorrerMunicipios(k, is_mun);
+                cout << "Voltar para tras - [PRESS e] " << endl << "Para repetir - [PRESS 3]" << endl;
+                cout << "==================================================================" << endl;
+                cin >> stringResposta;
+                if (stringResposta == "e") break;
+            }
+        }
+        if (stringResposta == "4") {}
+        if (stringResposta == "5") {}
+        if (stringResposta == "6") {}
+        if (stringResposta == "7") {}
+
+
+    }
+
+
     return 0;
 }

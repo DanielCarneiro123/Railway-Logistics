@@ -30,12 +30,6 @@ Edge * Vertex::addEdge(Vertex *d, int w, string service) {
     return newEdge;
 }
 
-/*
- * Auxiliary function to remove an outgoing edge (with a given destination (d))
- * from a vertex (this).
- * Returns true if successful, and false if such edge does not exist.
- */
-/*
 bool Vertex::removeEdge(int destID) {
     bool removedEdge = false;
     auto it = adj.begin();
@@ -44,25 +38,30 @@ bool Vertex::removeEdge(int destID) {
         Vertex *dest = edge->getDest();
         if (dest->getId() == destID) {
             it = adj.erase(it);
-            // Also remove the corresponding edge from the incoming list
-            auto it2 = dest->incoming.begin();
-            while (it2 != dest->incoming.end()) {
-                if ((*it2)->getOrig()->getId() == id) {
-                    it2 = dest->incoming.erase(it2);
-                }
-                else {
-                    it2++;
-                }
-            }
-            delete edge;
-            removedEdge = true; // allows for multiple edges to connect the same pair of vertices (multigraph)
+            deleteEdge(edge);
+            removedEdge = true;
         }
         else {
             it++;
         }
     }
     return removedEdge;
-}*/
+}
+
+void Vertex::deleteEdge(Edge *edge) {
+    Vertex *dest = edge->getDest();
+    // Remove the corresponding edge from the incoming list
+    auto it = dest->incoming.begin();
+    while (it != dest->incoming.end()) {
+        if ((*it)->getOrig()->getId() == id) {
+            it = dest->incoming.erase(it);
+        }
+        else {
+            it++;
+        }
+    }
+    delete edge;
+}
 
 bool Vertex::operator<(Vertex & vertex) const {
     return this->dist < vertex.dist;
@@ -229,8 +228,16 @@ Vertex* Edge::getTarget(){
 }
 
 
-string Edge::getService(){
+string Edge::getService() const{
     return this->service;
+}
+
+double Edge::getPrice() const{
+    return this->price;
+}
+
+void Edge::setPrice(double price) {
+    this->price = price;
 }
 /*
 void Edge::readEdges(){
