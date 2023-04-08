@@ -1,43 +1,33 @@
 //
-// Created by Daniel on 07/03/2023.
+// Created by danie on 22/03/2023.
 //
 
-#ifndef DAV1_STATIONS_H
-#define DAV1_STATIONS_H
+#ifndef DAV2_STATIONS_H
+#define DAV2_STATIONS_H
 
 #include <string>
 
 using namespace std;
 
-class stations {
+class Stations {
 public:
-    static void readStations();
 
-    bool operator<(Vertex & vertex) const; // // required by MutablePriorityQueue
-
-    int getName() const;
-
-    double getDist() const;
-    Edge *getPath() const;
-    std::vector<Edge *> getIncoming() const;
-
-    void setId(int info);
-    void setVisited(bool visited);
-    void setProcesssing(bool processing);
-    void setIndegree(unsigned int indegree);
-    void setDist(double dist);
-    void setPath(Edge *path);
-    Edge * addEdge(Vertex *dest, double w);
-    bool removeEdge(int destID);
-
-    friend class MutablePriorityQueue<Vertex>;
-protected:
     string Name;
     string District;
     string Municipality;
     string Township;
     string Line;
+
+    string getName();
+
+    string getDistrict();
+
+    string getMunicipality();
+
+    string getTownship();
+
+    string getLine();
 };
 
 
-#endif //DAV1_STATIONS_H
+#endif //DAV2_STATIONS_H

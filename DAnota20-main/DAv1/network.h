@@ -1,15 +1,31 @@
 //
-// Created by Daniel on 07/03/2023.
+// Created by danie on 22/03/2023.
 //
 
-#ifndef DAV1_NETWORK_H
-#define DAV1_NETWORK_H
+#ifndef DAV2_NETWORK_H
+#define DAV2_NETWORK_H
+
+#include <string>
+#include <map>
 
 using namespace std;
 
-class network {
+class Network {
+public:
+    string Source;
+    string Target;
+    int Capacity;
+    string Service;
+
+    string getSource();
+
+    string getTarget();
+
+    int getCapacity();
+
+    string getService();
 
 };
 
 
-#endif //DAV1_NETWORK_H
+#endif //DAV2_NETWORK_H
