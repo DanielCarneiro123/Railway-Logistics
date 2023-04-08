@@ -1,11 +1,12 @@
 #include <iostream>
 #include "Graph.h"
 #include "network.h"
+#include "readFiles.h"
 #include <sstream>
 #include <fstream>
 #include <unordered_set>
 
-void createEdges(Graph &g){
+/*void createEdges(Graph &g){
     ifstream myFile;
     string currentLine;
     myFile.open("../network2.csv");
@@ -91,7 +92,7 @@ void createVertexes(Graph &g){
     }
     myFile.close();
 
-}
+}*/
 
 
 
@@ -111,9 +112,12 @@ void Menu4 (Graph g) {
 
 int main() {
     Graph g;
-    Graph subgraph;
-    createVertexes(g);
-    createEdges(g);
+    //Graph subgraph;
+    readFiles rf;
+    g = rf.originalGraph();
+    //createVertexes(g);
+    //createEdges(g);
+
     string stringResposta;
     //std::cout << g.getNumVertex() << std::endl;
     //std::cout << g.getNumEdge() << std::endl;

@@ -7,6 +7,7 @@
 #include "VertexEdge.h"
 #include "unordered_set"
 #include "MutablePrioityQueue.h"
+#include "readFiles.h"
 
 std::vector<Vertex*> alteredSources;
 std::vector<Vertex*> alteredTargets;
@@ -359,11 +360,11 @@ void Graph::createSuperSource(const string &name, Graph &g, bool is_mun) {
         station->Municipality = "resto";
         g.addVertex(station);
         for (auto vertex: is_mun? g.getVerticesNotInMunicipality(name,g) : g.getVerticesNotInDistrict(name,g)) {
-            //if (vertex->getAdj().size() == g.minVertexAdjSize(g)){
+            if (vertex->getAdj().size() == g.minVertexAdjSize(g)){
                     if(is_mun? (vertex->getStation()->getMunicipality() != name) :  (vertex->getStation()->getDistrict() != name)){
                         g.addEdge(station->Name, vertex->getStation()->Name, INT_MAX, "");
                     }
-                //}
+                }
             }
         }
 
@@ -411,8 +412,8 @@ void Graph::sort(unordered_map<string, int>& maxFlowsMuni, int k){
 }
 
 void Graph::percorrerMunicipios(int k, bool is_mun) {
-
-    Graph graph = copy();
+    readFiles rf;
+    Graph graph = rf.originalGraph();
 
     if (is_mun) {
         unordered_map<string, int> maxFlowsMuni;
@@ -420,7 +421,7 @@ void Graph::percorrerMunicipios(int k, bool is_mun) {
         for (auto municipio: municipios) {
             if(municipio == "LISBOA")
                 cout << endl;
-            Graph g = graph;
+            Graph g = rf.originalGraph();
             g.createSuperSource(municipio, g, is_mun);
 
             g.createSuperSink(municipio, g,  is_mun);
@@ -438,32 +439,13 @@ void Graph::percorrerMunicipios(int k, bool is_mun) {
 
         for (auto distrito: distritos) {
 
-            Graph g = graph;
+            Graph g = rf.originalGraph();
             g.createSuperSource(distrito, g, is_mun);
-            /*
-            cout << "\nSOURCE NODES: \n";
-            for(auto edge : g.vertexSet[g.vertexSet.size()-1]->getAdj()){
-                cout << edge->getDest()->getName() << " | ";
-            }
 
-            cout << endl;
-    */
             g.createSuperSink(distrito, g, is_mun);
-/*
-            cout << "SINK NODES: \n";
-        for(auto edge : g.vertexSet[g.vertexSet.size()-1]->getIncoming()){
-            cout << edge->getOrig()->getName() << " | ";
-        }
 
-        cout << endl;
-
-*/
             int flow = g.edmondsKarp(g.vertexSet.size() - 1, g.vertexSet.size());
             maxFlowsDist.insert(std::make_pair(distrito, flow));
-
-
-
-            //cout << endl << "flow = " << flow << endl << endl ;
 
         }
         sort(maxFlowsDist, k);
