@@ -72,11 +72,11 @@ public:
     void addDistrict(string distrito);
 
 
-    set<Vertex *> getVerticesByMunicipality(const string &municipality);
-    set<Vertex*> getVerticesByDistrict(const string &distrito);
+    set<Vertex *> getVerticesByMunicipality(const string &municipality, Graph &g);
+    set<Vertex*> getVerticesByDistrict(const string &distrito, Graph &g);
         void createSuperSink(const string &name, Graph &g, bool is_mun);
-    set<Vertex*> getVerticesNotInMunicipality(const string &municipality);
-    set<Vertex*> getVerticesNotInDistrict(const string &distrito);
+    set<Vertex*> getVerticesNotInMunicipality(const string &municipality, Graph &g);
+    set<Vertex*> getVerticesNotInDistrict(const string &distrito, Graph &g);
     void createSuperSource(const string &name, Graph &g, bool is_mun);
     //static bool cmp(pair<string, int>& a, pair<string, int>& b);
     static bool cmp(const pair<string, int>& a, const pair<string, int>& b);
@@ -87,7 +87,7 @@ public:
 
 
     bool addBidirectionalEdge(const string &sourc, const string &dest, int w, string service);
-    int minVertexAdjSize();
+    int minVertexAdjSize(Graph &g);
     Vertex* getVertex(string name);
     void createSuperSourceV2(const int idA);
     double arrivingTrains(int sink);

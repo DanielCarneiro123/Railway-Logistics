@@ -8,11 +8,12 @@
 void createEdges(Graph &g){
     ifstream myFile;
     string currentLine;
-    myFile.open("../network.csv");
+    myFile.open("../network2.csv");
     getline(myFile, currentLine);
+    set<pair<string,string>> set_network;
     string tempString;
     int inputInt = 1;
-    while (getline(myFile, currentLine)){
+    while (getline(myFile, currentLine)) {
         Network *viagem = new Network();
         stringstream inputString(currentLine);
         getline(inputString, viagem->Source, ',');
@@ -40,7 +41,9 @@ void createEdges(Graph &g){
         inputInt = stoi(tempString);
         viagem->Capacity = inputInt;
         getline(inputString, viagem->Service, ',');
-        g.addBidirectionalEdge(viagem->Source, viagem->Target, viagem->Capacity, viagem->Service);
+        if ((set_network.insert(std::make_pair(viagem->Source, viagem->Target)).second)) {
+            g.addBidirectionalEdge(viagem->Source, viagem->Target, viagem->Capacity, viagem->Service);
+        }
     }
     myFile.close();
 }
@@ -51,7 +54,7 @@ void createVertexes(Graph &g){
 
     unordered_set<string> set_stations;
 
-    myFile.open("../stations.csv");
+    myFile.open("../stations2.csv");
     getline(myFile, currentLine);    // ignore first line
     while (getline(myFile, currentLine)) {
         Stations* station = new Stations();
@@ -82,9 +85,9 @@ void createVertexes(Graph &g){
         g.addMunicipality(station->Municipality);
         g.addDistrict(station->District);
         getline(iss, station->Line, ',');
-        //if((set_stations.insert(station->Name).second)){
+        if((set_stations.insert(station->Name).second)){
             g.addVertex(station);
-    //}
+    }
     }
     myFile.close();
 
@@ -118,7 +121,7 @@ int main() {
     //std::cout << subgraph.getNumVertex() << std::endl;
     //std::cout << subgraph.getNumEdge() << std::endl;
     //std::cout << g.arrivingTrains(5) << std::endl;
-    std::cout << g.operationCost(9,74) << std::endl;
+    //std::cout << g.operationCost(9,74) << std::endl;
     //Menu4(subgraph);
     //g.max();
     //g.maxFlow(0,3);

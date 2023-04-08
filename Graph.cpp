@@ -299,10 +299,10 @@ Vertex* Graph::getVertex(string name) {
 }
 
 
-set<Vertex*> Graph::getVerticesByMunicipality(const string &municipality) {
+set<Vertex*> Graph::getVerticesByMunicipality(const string &municipality,Graph &g) {
     set<Vertex*> result;
     set<string> result1;
-    for (auto vertex : vertexSet) {
+    for (auto vertex : g.vertexSet) {
         if (vertex->getStation()->getMunicipality() == municipality && vertex->getStation()->getName() != "supersink") {
             result.insert(vertex);
             result1.insert(vertex->getStation()->getName());
@@ -311,9 +311,9 @@ set<Vertex*> Graph::getVerticesByMunicipality(const string &municipality) {
     return result;
 }
 
-set<Vertex*> Graph::getVerticesByDistrict(const string &distrito) {
+set<Vertex*> Graph::getVerticesByDistrict(const string &distrito,Graph &g) {
     set<Vertex*> result;
-    for (auto vertex : vertexSet) {
+    for (auto vertex : g.vertexSet) {
         if (vertex->getStation()->getDistrict() == distrito && vertex->getStation()->getName() != "supersink") {
             result.insert(vertex);
         }
@@ -325,16 +325,16 @@ void Graph::createSuperSink(const string &name, Graph &g, bool is_mun) {
         Stations *station = new Stations();
         station->Name = "supersink";
         g.addVertex(station);
-        for (auto vertex : is_mun? g.getVerticesByMunicipality(name) : g.getVerticesByDistrict(name)) {
+        for (auto vertex : is_mun? g.getVerticesByMunicipality(name,g) : g.getVerticesByDistrict(name,g)) {
             if (vertex->getStation()->getName() != "supersink") {
                 g.addEdge(vertex->getName(), station->Name, INT_MAX, "");
             }
         }
 }
 
-set<Vertex*> Graph::getVerticesNotInMunicipality(const string &municipality) {
+set<Vertex*> Graph::getVerticesNotInMunicipality(const string &municipality, Graph &g) {
     set<Vertex*> result;
-    for (auto vertex : vertexSet) {
+    for (auto vertex : g.vertexSet) {
         if (vertex->getStation()->Municipality != municipality && vertex->getStation()->Municipality != "resto" && vertex->getStation()->Name != "supersink") {
             result.insert(vertex);
         }
@@ -342,9 +342,9 @@ set<Vertex*> Graph::getVerticesNotInMunicipality(const string &municipality) {
     return result;
 }
 
-set<Vertex*> Graph::getVerticesNotInDistrict(const string &distrito) {
+set<Vertex*> Graph::getVerticesNotInDistrict(const string &distrito, Graph &g) {
     set<Vertex*> result;
-    for (auto vertex : vertexSet) {
+    for (auto vertex : g.vertexSet) {
         if (vertex->getStation()->District != distrito && vertex->getStation()->District != "resto" && vertex->getStation()->Name != "supersink") {
             result.insert(vertex);
         }
@@ -358,8 +358,8 @@ void Graph::createSuperSource(const string &name, Graph &g, bool is_mun) {
         station->Name = "supersource";
         station->Municipality = "resto";
         g.addVertex(station);
-        for (auto vertex: is_mun? g.getVerticesNotInMunicipality(name) : g.getVerticesNotInDistrict(name)) {
-                //if (vertex->getAdj().size() == minVertexAdjSize()){
+        for (auto vertex: is_mun? g.getVerticesNotInMunicipality(name,g) : g.getVerticesNotInDistrict(name,g)) {
+            //if (vertex->getAdj().size() == g.minVertexAdjSize(g)){
                     if(is_mun? (vertex->getStation()->getMunicipality() != name) :  (vertex->getStation()->getDistrict() != name)){
                         g.addEdge(station->Name, vertex->getStation()->Name, INT_MAX, "");
                     }
@@ -368,9 +368,9 @@ void Graph::createSuperSource(const string &name, Graph &g, bool is_mun) {
         }
 
 
-int Graph::minVertexAdjSize(){
+int Graph::minVertexAdjSize(Graph &g){
     int min = INT_MAX;
-    for(auto v : vertexSet){
+    for(auto v : g.vertexSet){
         if(v->getAdj().size() < min && v->getAdj().size() > 0){
             min = v->getAdj().size();
         }
@@ -418,32 +418,15 @@ void Graph::percorrerMunicipios(int k, bool is_mun) {
         unordered_map<string, int> maxFlowsMuni;
 
         for (auto municipio: municipios) {
+            if(municipio == "LISBOA")
+                cout << endl;
             Graph g = graph;
             g.createSuperSource(municipio, g, is_mun);
-            /*
-            cout << "\nSOURCE NODES: \n";
-            for(auto edge : g.vertexSet[g.vertexSet.size()-1]->getAdj()){
-                cout << edge->getDest()->getName() << " | ";
-            }
 
-            cout << endl;
-    */
             g.createSuperSink(municipio, g,  is_mun);
-/*
-            cout << "SINK NODES: \n";
-        for(auto edge : g.vertexSet[g.vertexSet.size()-1]->getIncoming()){
-            cout << edge->getOrig()->getName() << " | ";
-        }
 
-        cout << endl;
-
-*/
             int flow = g.edmondsKarp(g.vertexSet.size() - 1, g.vertexSet.size());
             maxFlowsMuni.insert(std::make_pair(municipio, flow));
-
-
-
-            //cout << endl << "flow = " << flow << endl << endl ;
 
         }
 
@@ -594,7 +577,7 @@ void Graph::createSuperSourceV2(const int idA) {
     station->Municipality = "resto";
     addVertex(station);
     for (auto vertex : vertexSet) {
-        if (vertex->getId() != idA && vertex->getAdj().size() == minVertexAdjSize()){
+        if (vertex->getId() != idA /*&& vertex->getAdj().size() == minVertexAdjSize(g)*/){
             addEdge(station->Name, vertex->getStation()->Name, INT_MAX, "");
         }
     }
