@@ -94,8 +94,7 @@ void createVertexes(Graph &g){
 
 }*/
 
-
-
+/*
 void Menu4 (Graph g) {
     int num = 0;
     g.createSubgraph();
@@ -107,18 +106,29 @@ void Menu4 (Graph g) {
         cout << v->getName() << endl;
     }
 }
-
+*/
 
 
 int main() {
-    Graph g;
-    //Graph subgraph;
     readFiles rf;
-    g = rf.originalGraph();
+    Graph g = rf.originalGraph();
+    g.createSubgraph();
+    string s;
+    string d;
+    cin >> s;
+    cin >> d;
+    vector<Vertex*> aff = g.affectedEach(s,d,5);
+    for (int i = 0; i<aff.size(); i++) {
+        cout << aff[i]->getName() << endl;
+    }
+
+    //Graph subgraph;
+    //readFiles rf;
+    //g = rf.originalGraph();
     //createVertexes(g);
     //createEdges(g);
 
-    string stringResposta;
+    //string stringResposta;
     //std::cout << g.getNumVertex() << std::endl;
     //std::cout << g.getNumEdge() << std::endl;
     //subgraph = g.createSubgraph();
@@ -133,7 +143,7 @@ int main() {
     //std::cout << g.getVertexSet().size() << std::endl;
 
 
-
+/*
     while (stringResposta != "q") {
         cout << "===================================== MENU ========================================" << endl;
         cout << "Maximo flow entre duas estações? - [PRESS 1]" << endl;
@@ -175,6 +185,7 @@ int main() {
                 g.max();
                 cout << "Voltar para tras - [PRESS e] " << endl << "Para repetir - [PRESS 2]" << endl;
                 cout << "==================================================================" << endl;
+                cin >> stringResposta;
                 if (stringResposta == "e") break;
                 cin.ignore();
             }
@@ -233,7 +244,7 @@ int main() {
 
 
     }
-
+*/
 
     return 0;
 }

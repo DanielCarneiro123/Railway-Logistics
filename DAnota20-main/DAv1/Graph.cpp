@@ -13,6 +13,7 @@ std::vector<Vertex*> alteredSources;
 std::vector<Vertex*> alteredTargets;
 std::vector<Edge> removedEdges;
 
+
 Graph Graph::copy() const{
     Graph graphCopy;
     for(auto v: vertexSet){
@@ -453,28 +454,27 @@ void Graph::percorrerMunicipios(int k, bool is_mun) {
 
     }
 }
-bool Graph::removeEdge(const int &source, const int &dest) {
-    Vertex* src = findVertex(source);
+bool Graph::removeEdge(const int &source, const int &dest, Graph &g) {
+    Vertex* src = g.findVertex(source);
     if(src == nullptr) {
         return false;
     }
     return src->removeEdge(dest);
 }
 
-Graph Graph::createSubgraph() {
+void Graph::createSubgraph() {
+
+    readFiles rf;
+    Graph g = rf.originalGraph();
 
     srand(time(nullptr));
 
-    Graph subgraph;
-    subgraph.vertexSet = vertexSet;
-    subgraph.vertexMap = vertexMap;
-
-    int NEdgesRm = rand() % 15 + 1;
+    int NEdgesRm = rand() % 4 + 1;
 
     for (int i = 0; i < NEdgesRm; i++) {
 
-        int src = rand() % subgraph.vertexSet.size();
-        Vertex *source = subgraph.findVertex(src);
+        int src = rand() % vertexSet.size();
+        Vertex *source = findVertex(src);
         alteredSources.push_back(source);
 
         if (source->getAdj().size() < 1) continue;
@@ -484,13 +484,12 @@ Graph Graph::createSubgraph() {
         int target = dest->getId();
         source->getAdj()[rand2]->setSource(source);
         removedEdges.push_back(*source->getAdj()[rand2]);
-        subgraph.removeEdge(src, target);
+        removeEdge(src, target, g);
     }
 
     for (int i = 0; i<removedEdges.size(); i++) {
-        cout <<"Origem: " << removedEdges[i].getSource()->getName() << " | Destino: "<< removedEdges[i].getDest()->getName() << endl;
+        cout <<"Origem: " << removedEdges[i].getOrig()->getName() << " | Destino: "<< removedEdges[i].getDest()->getName() << endl;
     }
-    return subgraph;
 }
 /*
 void bubbleSortIncommings(std::vector<Vertex*>& v) {
@@ -524,7 +523,7 @@ void bubbleSortAdj(std::vector<Vertex*>& v) {
         n--;
     }
 }
-*/
+
 void Graph::bubbleSortAffected(std::vector<Vertex*>& v) {
     bool swapped = true;
     size_t n = v.size();
@@ -541,33 +540,68 @@ void Graph::bubbleSortAffected(std::vector<Vertex*>& v) {
     }
 
 }
+*/
+vector<Vertex*> sort_equal(vector<int> numbers, vector<Vertex*> vertexes) {
+    unordered_map<Vertex*, int> vertex_to_number;
+    for (int i = 0; i < vertexes.size(); i++) {
+        vertex_to_number[vertexes[i]] = numbers[i];
+    }
+    sort(numbers.begin(), numbers.end());
+
+    vector<Vertex*> sorted_vertexes;
+    for(int i = 0; i < vertexes.size(); i++) {
+        sorted_vertexes.push_back();
+    }
+    return sorted_vertexes;
+}
 
 vector<Vertex*> Graph::affectedEach(string source, string target, int k) {
 
-    vector<Vertex*> kthaffectedEach;
+    readFiles rf;
 
-    Vertex* src = findSourceTarget(source);
-    Vertex* dest = findSourceTarget(target);
+    vector<int> originalRes;
+    vector<int> removedRes;
+    vector<int> diffs;
+    vector<Vertex*> kthaffectedEach;
+    Graph graph = rf.originalGraph();
+
+
+
+    for (auto v : vertexSet) {
+        int res1 = graph.arrivingTrains(v->getId(),graph);
+        originalRes.push_back(res1);
+    }
+
+    Graph g = rf.originalGraph();
+
+    Vertex* src = g.findSourceTarget(source);
+    Vertex* dest = g.findSourceTarget(target);
 
     int idsrc = src->getId();
     int iddest = dest->getId();
 
-    Graph subgraph;
-    subgraph.vertexSet = vertexSet;
-    subgraph.vertexMap = vertexMap;
-
-    subgraph.removeEdge(idsrc, iddest);
 
     for (auto v : vertexSet) {
-        int res1 = arrivingTrains(v->getId());
-        int res2 = subgraph.arrivingTrains(v->getId());
-        if (res1 != res2) {
-            kthaffectedEach.push_back(v);
+        g.removeEdge(idsrc, iddest,g);
+        int res2 = g.arrivingTrains(v->getId(), g);
+        removedRes.push_back(res2);
+    }
+
+    for (int i = 0; i<originalRes.size() ; i++) {
+        if (originalRes[i] != removedRes[i]) {
+            kthaffectedEach.push_back(vertexSet[i]);
+            int diff = originalRes[i]- removedRes[i];
+            diffs.push_back(diff);
         }
     }
-    bubbleSortAffected(kthaffectedEach);
-    kthaffectedEach.erase(kthaffectedEach.begin() + k, kthaffectedEach.end());
+
+
+    vector<Vertex*> sortedVertexes = sort_equal(diffs, kthaffectedEach);
+    sortedVertexes.erase(std::unique(sortedVertexes.begin(), sortedVertexes.end()), sortedVertexes.end());
+    sortedVertexes.erase(sortedVertexes.begin() + k, sortedVertexes.end());
+    return sortedVertexes;
 }
+
 
 /*
 vector<Vertex*> Graph::kthAfectedNodes(int k) {
@@ -606,41 +640,47 @@ vector<Vertex*> Graph::kthAfectedNodes(int k) {
 }
 */
 
-
+/*
 void Graph::createSuperSourceV2(const int idA) {
     Stations* station = new Stations();
     station->Name = "supersource";
     station->Municipality = "resto";
     addVertex(station);
     for (auto vertex : vertexSet) {
-        if (vertex->getId() != idA /*&& vertex->getAdj().size() == minVertexAdjSize(g)*/){
+        if (vertex->getId() != idA && vertex->getAdj().size() == 1){
+            addEdge(station->Name, vertex->getStation()->Name, INT_MAX, "");
+        }
+    }
+}
+*/
+
+void Graph::createSuperSourceV2(const int idA, Graph &g) {
+    Stations* station = new Stations();
+    station->Name = "supersource";
+    station->Municipality = "resto";
+    g.addVertex(station);
+    for (auto vertex : g.vertexSet) {
+        if (vertex->getId() != idA && vertex->getAdj().size() == minVertexAdjSize(g)){
             addEdge(station->Name, vertex->getStation()->Name, INT_MAX, "");
         }
     }
 }
 
 
-double Graph::arrivingTrains(int sink){
-    createSuperSourceV2(sink);
+double Graph::arrivingTrains(int sink, Graph &g1){
+    g1.createSuperSourceV2(sink, g1);
     double res = 0;
-    edmondsKarp(vertexSet.size(), sink);
-    auto v = findVertex(sink);
+    g1.edmondsKarp(g1.vertexSet.size(), sink);
+    auto v = g1.findVertex(sink);
     for (auto e: v->getIncoming()){
         res += e->getFlow();
     }
-    for (auto v: vertexSet){
-        if (v->getMunicipality() == "resto" && v->getName() == "supersource"){
-            for (auto e: v->getAdj()){
-                auto v2 = e->getDest();
-                removeEdge(v->getId(), v2->getId());
-            }
-        }
-    }
-    auto source = findVertex(vertexSet.size());
-    vertexSet.erase(std::remove(vertexSet.begin(), vertexSet.end(), source));
+    readFiles rf;
+    g1 = rf.originalGraph();
     return res;
-
 }
+
+
 
 void Graph::Dijkstra(int idA){
     for (auto v: vertexSet){
@@ -697,7 +737,7 @@ double Graph::operationCost(int idA, int idB){
 
     return maxflow;
 }
-
+/*
 void Graph::menu2_1(string A, string B){
     Vertex* vertexA;
     Vertex* vertexB;
@@ -731,3 +771,4 @@ void Graph::menu2_4(string A){
     cout << "O máximo de comboios que pode chegar a " << A << " é " << arrivingTrains(vertex->getId()) << endl;
 
 }
+*/

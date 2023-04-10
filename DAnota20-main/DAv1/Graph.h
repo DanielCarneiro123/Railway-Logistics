@@ -49,7 +49,7 @@ public:
 
     bool addEdge(const string &sourc, const string &dest, int w, string service);
 
-    bool removeEdge(const int &source, const int &dest);
+    bool removeEdge(const int &source, const int &dest,Graph &g);
 
     bool findAugmentingPath(Vertex *src, Vertex *dest);
 
@@ -57,7 +57,7 @@ public:
 
     void augmentFlowAlongPath(Vertex *src, Vertex *dest, double f);
 
-    Graph createSubgraph ();
+    void createSubgraph ();
     vector<Vertex*> affectedEach(string source, string target, int k);
     void bubbleSortAffected(std::vector<Vertex*>& v);
     //vector<Vertex*> kthAfectedNodes(int k);
@@ -91,14 +91,22 @@ public:
     bool addBidirectionalEdge(const string &sourc, const string &dest, int w, string service);
     int minVertexAdjSize(Graph &g);
     Vertex* getVertex(string name);
-    void createSuperSourceV2(const int idA);
+    void createSuperSourceV2(const int idA, Graph &g);
+    //void createSuperSourceV2(const int idA);
+
+
+    double arrivingTrains(int sink, Graph &g);
     double arrivingTrains(int sink);
+
+
     void Dijkstra(int idA);
     double operationCost(int idA, int idB);
 
     void menu2_1(string A, string B);
     void menu2_4(string A);
 
+
+    //double arrivingTrains(int sink, Graph &g);
 
 protected:
 
