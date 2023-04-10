@@ -8,6 +8,7 @@
 #include "unordered_set"
 #include "MutablePrioityQueue.h"
 #include "readFiles.h"
+#include <numeric>
 
 std::vector<Vertex*> alteredSources;
 std::vector<Vertex*> alteredTargets;
@@ -462,14 +463,14 @@ bool Graph::removeEdge(const int &source, const int &dest, Graph &g) {
     return src->removeEdge(dest);
 }
 
-void Graph::createSubgraph() {
+vector<Edge> Graph::createSubgraph() {
 
     readFiles rf;
     Graph g = rf.originalGraph();
 
     srand(time(nullptr));
 
-    int NEdgesRm = rand() % 4 + 1;
+    int NEdgesRm = rand() % 1506 + 1;
 
     for (int i = 0; i < NEdgesRm; i++) {
 
@@ -487,9 +488,9 @@ void Graph::createSubgraph() {
         removeEdge(src, target, g);
     }
 
-    for (int i = 0; i<removedEdges.size(); i++) {
-        cout <<"Origem: " << removedEdges[i].getOrig()->getName() << " | Destino: "<< removedEdges[i].getDest()->getName() << endl;
-    }
+    rf.originalGraph();
+
+    return removedEdges;
 }
 /*
 void bubbleSortIncommings(std::vector<Vertex*>& v) {
@@ -542,18 +543,27 @@ void Graph::bubbleSortAffected(std::vector<Vertex*>& v) {
 }
 */
 vector<Vertex*> sort_equal(vector<int> numbers, vector<Vertex*> vertexes) {
-    unordered_map<Vertex*, int> vertex_to_number;
-    for (int i = 0; i < vertexes.size(); i++) {
-        vertex_to_number[vertexes[i]] = numbers[i];
-    }
-    sort(numbers.begin(), numbers.end());
 
-    vector<Vertex*> sorted_vertexes;
-    for(int i = 0; i < vertexes.size(); i++) {
-        sorted_vertexes.push_back();
+    std::vector<int> indices(numbers.size());
+    std::iota(indices.begin(), indices.end(), 0);
+
+
+    std::sort(indices.begin(), indices.end(), [&numbers](int i, int j) {
+        return numbers[i] < numbers[j];
+    });
+
+
+    std::vector<int> sorted_numbers(numbers.size());
+    std::vector<Vertex*> sorted_vertexes(vertexes.size());
+    for (int i = 0; i < numbers.size(); i++) {
+        sorted_numbers[i] = numbers[indices[i]];
+        sorted_vertexes[i] = vertexes[indices[i]];
     }
-    return sorted_vertexes;
+    numbers = sorted_numbers;
+    vertexes = sorted_vertexes;
+    return vertexes;
 }
+
 
 vector<Vertex*> Graph::affectedEach(string source, string target, int k) {
 
@@ -597,8 +607,8 @@ vector<Vertex*> Graph::affectedEach(string source, string target, int k) {
 
 
     vector<Vertex*> sortedVertexes = sort_equal(diffs, kthaffectedEach);
-    sortedVertexes.erase(std::unique(sortedVertexes.begin(), sortedVertexes.end()), sortedVertexes.end());
-    sortedVertexes.erase(sortedVertexes.begin() + k, sortedVertexes.end());
+    if (k > sortedVertexes.size()) k = sortedVertexes.size();
+    sortedVertexes.erase(sortedVertexes.begin(), sortedVertexes.end() - k);
     return sortedVertexes;
 }
 
@@ -737,7 +747,7 @@ double Graph::operationCost(int idA, int idB){
 
     return maxflow;
 }
-/*
+
 void Graph::menu2_1(string A, string B){
     Vertex* vertexA;
     Vertex* vertexB;
@@ -759,6 +769,8 @@ void Graph::menu2_1(string A, string B){
 }
 
 void Graph::menu2_4(string A){
+    readFiles rf;
+    Graph g = rf.originalGraph();
     Vertex* vertex;
     vertex = getVertex(A);
 
@@ -768,7 +780,6 @@ void Graph::menu2_4(string A){
     }
 
 
-    cout << "O máximo de comboios que pode chegar a " << A << " é " << arrivingTrains(vertex->getId()) << endl;
+    cout << "O máximo de comboios que pode chegar a " << A << " é " << arrivingTrains(vertex->getId(), g) << endl;
 
 }
-*/

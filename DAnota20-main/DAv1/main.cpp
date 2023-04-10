@@ -112,23 +112,26 @@ void Menu4 (Graph g) {
 int main() {
     readFiles rf;
     Graph g = rf.originalGraph();
-    g.createSubgraph();
-    string s;
-    string d;
-    cin >> s;
-    cin >> d;
-    vector<Vertex*> aff = g.affectedEach(s,d,5);
-    for (int i = 0; i<aff.size(); i++) {
-        cout << aff[i]->getName() << endl;
-    }
+    //vector<Edge> removedEdges = g.createSubgraph();
+    //for (int i = 0; i<removedEdges.size(); i++) {
+    //    cout <<"Origem: " << removedEdges[i].getOrig()->getName() << " | Destino: "<< removedEdges[i].getDest()->getName() << endl;
+    //}
+    //string s;
+    //string d;
+    //cin >> s;
+    //cin >> d;
+    //vector<Vertex*> aff = g.affectedEach(s,d,5);
+    //for (int i = 0; i<aff.size(); i++) {
+     //   cout << aff[i]->getName() << endl;
+    //}
 
-    //Graph subgraph;
+    Graph subgraph;
     //readFiles rf;
     //g = rf.originalGraph();
     //createVertexes(g);
     //createEdges(g);
 
-    //string stringResposta;
+    string stringResposta;
     //std::cout << g.getNumVertex() << std::endl;
     //std::cout << g.getNumEdge() << std::endl;
     //subgraph = g.createSubgraph();
@@ -143,7 +146,7 @@ int main() {
     //std::cout << g.getVertexSet().size() << std::endl;
 
 
-/*
+
     while (stringResposta != "q") {
         cout << "===================================== MENU ========================================" << endl;
         cout << "Maximo flow entre duas estações? - [PRESS 1]" << endl;
@@ -151,7 +154,7 @@ int main() {
         cout << "Verificar o Top-K distritos / municipios quanto à sua necessidade? - [PRESS 3]" << endl;
         cout << "Maximo de comboios que pode chegar a uma estacao? - [PRESS 4]" << endl;
         cout << "Maximo flow entre duas estacoes tendo em conta o minimo custo? - [PRESS 5]" << endl;
-        cout << " - [PRESS 6]" << endl;
+        cout << "Linhas em manutenção - [PRESS 6]" << endl;
         cout << " - [PRESS 7]" << endl;
         cout << " - [PRESS 8]" << endl;
 
@@ -239,12 +242,40 @@ int main() {
                 if (stringResposta == "e") break;
             }
         }
-        if (stringResposta == "6") {}
+        if (stringResposta == "6") {
+            while (stringResposta != "e") {
+                cout << "============================ MENU ================================" << endl;
+                vector<Edge> removedEdges = g.createSubgraph();
+                cout << "Display de linhas em manutenção:" << endl;
+                for (int i = 0; i<removedEdges.size(); i++) {
+                    cout <<"Origem: " << removedEdges[i].getOrig()->getName() << " | Destino: "<< removedEdges[i].getDest()->getName() << endl;
+                }
+                cout << "Para ver as estações mais afetadas pela manutenção de uma linha digite:" << endl;
+                cout << "Estação de origem da linha:" << endl;
+                getline(cin, stringResposta);
+                string source = stringResposta;
+                cout << "Estação de destino da linha:" << endl;
+                getline(cin, stringResposta);
+                string dest = stringResposta;
+                cout << "Número de stações afetadas:" << endl;
+                int k;
+                cin >> k;
+                vector<Vertex*> aff = g.affectedEach(source,dest,k);
+                for (int i = 0; i<aff.size(); i++) {
+                    cout << aff[i]->getName() << endl;
+                }
+                cout << "Voltar para tras - [PRESS e] " << endl << "Para repetir - [PRESS 2]" << endl;
+                cout << "==================================================================" << endl;
+                cin >> stringResposta;
+                if (stringResposta == "e") break;
+                cin.ignore();
+            }
+        }
         if (stringResposta == "7") {}
 
 
     }
-*/
+
 
     return 0;
 }

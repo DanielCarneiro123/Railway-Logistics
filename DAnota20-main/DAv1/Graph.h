@@ -57,7 +57,7 @@ public:
 
     void augmentFlowAlongPath(Vertex *src, Vertex *dest, double f);
 
-    void createSubgraph ();
+    vector<Edge> createSubgraph ();
     vector<Vertex*> affectedEach(string source, string target, int k);
     void bubbleSortAffected(std::vector<Vertex*>& v);
     //vector<Vertex*> kthAfectedNodes(int k);
