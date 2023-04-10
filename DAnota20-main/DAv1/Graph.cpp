@@ -470,7 +470,7 @@ vector<Edge> Graph::createSubgraph() {
 
     srand(time(nullptr));
 
-    int NEdgesRm = rand() % 1506 + 1;
+    int NEdgesRm = rand() % 150 + 1;
 
     for (int i = 0; i < NEdgesRm; i++) {
 
